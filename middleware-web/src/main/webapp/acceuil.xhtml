@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Acceuil</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        
+    </h:head>
+    <h:body>
+        <h:form>
+        <h:outputLabel value="#{userController.selected.username}"> is connected </h:outputLabel>
+        <br/>
+        <br/>
+        <h:commandButton action="#{userController.disconnect()}" value="Se Déconnecter " />
+        <br/>
+        <br/>
+        <h:commandLink action="#{userController.remove()}" value="Supprimer mon compte!" />
+        <br/>
+        <br/>
+        <h:commandLink action="user/List" value="Lancer un challange / Envoyer un message d'ajout" />
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+             <h:outputText value="La liste globale des utilisateurs :"/>
+             <h:form styleClass="jsfcrud_list_form" > 
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="no user in database" rendered="#{userController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{userController.items.rowCount > 0}">
+                    <h:outputText value="#{userController.pagination.pageFirstItem + 1}..#{userController.pagination.pageLastItem + 1}/#{userController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{userController.previous}" value="previous #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{userController.next}" value="next #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{userController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="username"/>
+                            </f:facet>
+                            <h:outputText value="#{item.username}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="elo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.elo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="email"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="inscription day"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateAjout}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="level"/>
+                            </f:facet>
+                            <h:outputText value="#{item.niveau}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+            </h:form>
+                <br/>
+                <br/>
+                <h:outputText value="liste des Messages envoyé :"/>
+                <br/>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+        <h:outputText escape="false" value="no messages" rendered="#{userController.messages.rowCount == 0}"/>
+                <h:panelGroup rendered="#{userController.messages.rowCount > 0}">
+                    <h:outputText value="#{userController.pagination.pageFirstItem + 1}..#{userController.pagination.pageLastItem + 1}/#{userController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{userController.previous}" value="previous #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{userController.next}" value="next #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{userController.messages}" var="msg" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="username"/>
+                            </f:facet>
+                            <h:outputText value="#{msg.idUser1.email}"/>
+                        </h:column>
+                        <h:column rendered="#{msg.typeMsg}">
+                            <f:facet name="header">
+                                <h:outputText value="request you contact"/>
+                            </f:facet>
+                            <h:commandButton value="#{userController.accept()}">
+                                <f:param name="iduser" value="#{msg.idUser1.email}"></f:param>
+                            </h:commandButton>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="message type"/>
+                            </f:facet>
+                            <h:outputText value="#{msg.typeMsg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="content"/>
+                            </f:facet>
+                            <h:outputText value="#{msg.contenu2}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                
+                <br />
+                
+                <h:outputLabel value="Classement des utilisateurs :"></h:outputLabel>
+                <h:dataTable value="#{userController.scores.keySet()}" var="key" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">                
+                    <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="username"/>
+                            </f:facet>
+                            <h:outputText value="#{key.username}"/>
+                    </h:column>
+                   <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="score"/>
+                            </f:facet>
+                            <h:outputText value="#{userController.scores.get(key)}"/>
+                    </h:column>
+                    </h:dataTable>
+            </h:form>
+        
+    </h:body>
+</html>

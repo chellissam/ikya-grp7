@@ -1,0 +1,35 @@
+body{
+	
+	background-color: #ECF3FD;
+	
+}
+
+.conteiner{
+	
+	width: 350px;
+	margin-left: auto;
+	margin-right:auto;
+	margin-top: 25%;
+	font-size: 25px;
+	
+}
+
+.ui-state-default .icon-login{
+	
+	background-image: url(../images/icons/login.png);	
+	
+}
+
+.div2 {
+    width: 450px;
+    height: 50px;
+    font-size: 18px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}

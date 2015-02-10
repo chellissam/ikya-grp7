@@ -1,3 +1,6 @@
 /IKYA-Projet-ejb/target/
 /IKYA-Projet-web/target/
 /IKYA-Projet-ear/target/
+/middleware-ear/target/
+/middleware-ejb/target/
+/middleware-web/target/

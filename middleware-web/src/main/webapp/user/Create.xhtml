@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="Formulaire d'Inscription "></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="username" for="username" />
+                    <h:inputText id="username" value="#{userController.selected.username}" title="username" required="true" requiredMessage="username is required"/>
+                    <h:outputLabel value="password" for="password" />
+                    <h:inputText id="password" value="#{userController.selected.password}" title="password" required="true" requiredMessage="password is required"/>
+                    <h:outputLabel value="elo" for="elo" />
+                    <h:inputText id="elo" disabled="true" value="100" title="elo" required="true" requiredMessage="elo is required"/>
+                    <h:outputLabel value="email" for="email" />
+                    <h:inputText id="email" value="#{userController.selected.email}" title="email" required="true" requiredMessage="email address is required"/>
+                    <h:outputLabel value="niveau" for="niveau" />
+                    <h:inputText id="niveau" disabled="true" value="Debutant" title="niveau" required="true" requiredMessage="level specification is required"/>
+                </h:panelGrid>
+                <br />
+                <h:commandButton action="#{userController.create}" value="Inscription" /> &nbsp; &nbsp; <h:link outcome="/index" value="return"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
